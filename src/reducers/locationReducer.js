@@ -13,19 +13,24 @@ export const setEndDate = (date) => {
     dispatch({ type: "NEW_END_DATE", data: date });
   };
 };
-
-const reducer = (state = {}, action) => {
+export const setId = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: "NEW_ID", data: id });
+  };
+};
+const reducer = (state = { name: [], id: [] }, action) => {
   switch (action.type) {
     case "NEW_NAME": {
+      let newName = state.name.concat(action.data);
+      newName = newName.filter((a, i) => newName.indexOf(a) === i);
       return {
-        name: action.data,
+        name: newName,
         startDate: state.startDate,
         id: state.id,
         endDate: state.endDate,
       };
     }
     case "NEW_START_DATE": {
-      console.log(state);
       return {
         name: state.name,
         startDate: action.data,
@@ -41,12 +46,14 @@ const reducer = (state = {}, action) => {
         id: state.id,
       };
     }
-    case "LOCATION_ID": {
+    case "NEW_ID": {
+      let newId = state.id.concat(action.data);
+      newId = newId.filter((a, i) => newId.indexOf(a) === i);
       return {
         endDate: state.endDate,
         name: state.name,
         startDate: state.startDate,
-        id: action.data,
+        id: newId,
       };
     }
     default: {

@@ -1,7 +1,73 @@
 .App {
   text-align: center;
+  height: 100%;
+  font-size: 1rem;
 }
 
+body {
+  width: 100%;
+  height: 100%;
+  min-width: 450px;
+  font-size: 100%;
+}
+.home1 {
+  border: black solid 1px;
+  display: block;
+  margin: auto;
+  margin-top: 100px;
+  padding: 5%;
+  box-shadow: 2px 2px 2px black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+#plotly {
+  width: 40%;
+  height: 40%;
+
+  right: 0px;
+}
+.home2 {
+  display: flex;
+  border: black solid 1px;
+  margin-top: 5%;
+  padding: 3%;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 1px 1px 1px black;
+}
+#meteostat {
+  margin-right: 10%;
+  width: 40%;
+  height: 40%;
+  left: 0px;
+  object-fit: contain;
+}
+#searchImage {
+  width: 15%;
+  height: 15%;
+  right: 0px;
+  margin-left: 10%;
+}
+.home3 {
+  border: black solid 1px;
+  display: block;
+  margin: auto;
+  margin-top: 5%;
+  padding: 5%;
+  box-shadow: 2px 2px 2px black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.home2 > p {
+  width: 50%;
+  right: 0px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +101,358 @@
   to {
     transform: rotate(360deg);
   }
+}
+a {
+  color: #1976d2;
+}
+a:hover {
+  text-decoration: none;
+}
+.searchList {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  z-index: 3000;
+  border-left: black solid 1px;
+  border-right: black solid 1px;
+}
+.searchlist:last-of-type {
+  border-bottom: black solid 1px;
+}
+.searchList > a {
+  color: rgb(151, 101, 34);
+}
+.NaviBar {
+  height: 0px;
+  display: flex;
+  min-width: 100%;
+  background-color: white !important;
+}
+.NaviBar > div {
+  width: 100%;
+}
+
+.searchNavInput {
+  width: 100%;
+  height: 100%;
+}
+
+.individualPlaces {
+  max-height: 5%;
+
+  padding: 0 3px 0 3px;
+  margin-right: 10px;
+  margin-top: 10px;
+  animation-name: enterLeft;
+  animation-duration: 0.5s;
+}
+.individualPlaces > a {
+  color: black;
+}
+@keyframes wiggleAndLeave {
+  0% {
+    transform: rotate(10deg);
+  }
+  13% {
+    transform: rotate(-10deg);
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+  75% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: translateX(-1000px);
+  }
+}
+@keyframes enterLeft {
+  0% {
+    transform: translateX(-400px);
+  }
+  90% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes enterRight {
+  0% {
+    transform: translateX(200px);
+  }
+
+  90% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.held {
+  animation-name: wiggleAndLeave;
+  animation-duration: 1s;
+}
+.selected {
+  border-bottom: white solid 4px;
+  color: white;
+  background-color: white;
+  border-radius: 10%;
+  box-sizing: content-box !important;
+}
+.selected > a {
+  color: #1976d2;
+}
+.tooltip {
+  position: relative;
+}
+.secondNavBar {
+  touch-action: manipulation;
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(0, 123, 255);
+  display: flex;
+  overflow-x: scroll;
+  border-top: 4px solid #1976d2;
+  height: 40px;
+}
+.secondNavBar::-webkit-scrollbar {
+  display: none;
+}
+
+.thirdNavBar {
+  position: absolute;
+  width: 100%;
+  top: 40px;
+  left: 0px;
+  height: 60px;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px #1769aa solid;
+}
+.lastNavBar {
+  width: 100%;
+}
+.thirdNavBar > input {
+  height: 10px !important;
+}
+.App {
+  width: 100%;
+}
+.infos {
+  margin-top: 90px;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#dateInfos {
+  margin-bottom: 10%;
+}
+
+.hidden {
+  visibility: hidden;
+}
+.trueHidden {
+  display: none;
+}
+.searchIcon {
+  color: black;
+  z-index: 1100;
+}
+
+.searchForm {
+  width: 50%;
+  position: absolute;
+  overflow: hidden;
+  top: 13px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  animation-name: enterLeft;
+  animation-duration: 1s;
+}
+
+.searchSpan {
+  flex: 0;
+  display: flex;
+  flex-direction: row;
+  transition: flex 1s;
+}
+.searchSpan > input {
+  display: none;
+  width: 0px;
+  height: 0xp;
+}
+.dateSpan {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-evenly;
+  animation-name: enterLeft;
+  animation-duration: 0.5s;
+}
+
+.graphSlider {
+  animation-name: enterRight;
+  animation-duration: 1s;
+}
+.Flex {
+  flex: 1 !important;
+  transition: flex 1s;
+}
+.Flex > input {
+  widows: 100%;
+  height: 20px;
+}
+#search-input {
+  width: 30%;
+}
+.searchForm > input:focus {
+  outline: none;
+  width: 100%;
+}
+
+.suggestions {
+  position: relative;
+  list-style: none;
+  align-items: left;
+  align-self: left;
+  z-index: 3000;
+  border-top: 0px;
+}
+
+.suggestions:last-child {
+  border-bottom: black solid 1px;
+}
+
+.changeDateForm {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.dateInput {
+  border: none;
+  border-bottom: 1px black solid;
+  width: 150px;
+}
+
+.Plot {
+  width: 100%;
+  height: 100%;
+}
+
+.barsTab {
+  display: flex;
+  font-size: 0.75rem;
+}
+.scatterTab {
+  display: flex;
+  font-size: 0.75rem;
+}
+.accordion {
+  min-height: 100vh;
+}
+.MuiCollapse-wrapperInner {
+  border-top: rgb(0, 98, 204) 1px solid;
+}
+#data1Color {
+  border: none;
+  background-color: white;
+}
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  width: 15px;
+  height: 15px;
+  box-sizing: content-box;
+  background-color: white;
+  margin-top: none;
+  padding: 0;
+  padding-bottom: 10px;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: whitesmoke 2px solid;
+  box-shadow: 3px 2px 2px black;
+  width: 100%;
+  height: 75%;
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+  margin-top: 30%;
+}
+input[type="color"]:focus {
+  outline: none;
+}
+.colorTab {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  align-content: center;
+  animation-name: enterRight;
+  animation-duration: 1s;
+}
+.homeLayout {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.infoCard {
+  margin-right: 20px;
+  width: 30%;
+  padding: 15px;
+  height: 100%;
+  box-shadow: 2px 2px 2px black;
+  background: linear-gradient(to right, rgb(0, 98, 204) 50%, white 50%);
+  background-size: 210% 100%;
+  background-position: right bottom;
+  border-left: 5px rgb(0, 98, 204) solid;
+  border-radius: 4%;
+  border-top: black solid 1px;
+  transition: all 0.5s ease;
+}
+.clickedDate {
+  background: linear-gradient(to right, rgb(0, 98, 204) 50%, white 50%);
+  background-position: left bottom;
+  background-size: 210% 100%;
+}
+.infocards {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#panel1a-header {
+  background-color: rgb(0, 123, 255);
+  border-top: #1976d2 3px solid;
+}
+#panel2a-header {
+  background-color: rgb(0, 123, 255);
+  border-top: #1976d2 1px solid;
+}
+
+#expanded {
+  background-color: white;
+
+  border-top: 5px black solid;
+}
+
+.accordionBlock {
+  margin-top: 10%;
 }

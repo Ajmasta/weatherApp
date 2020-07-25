@@ -1,75 +1,76 @@
 import React, { useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setName,
-  setStartDate,
-  setEndDate,
-  getLocationID,
-} from "./reducers/locationReducer";
+
 import { getTodayDate } from "./reducers/todayDateReducer";
 
-import Form from "./components/Form";
+import Info from "./components/Info";
+
+import NavigationBar from "./components/navBar";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Paper from "@material-ui/core/Paper";
+import SearchIcon from "@material-ui/icons/Search";
 
 const App = () => {
   const dispatch = useDispatch();
+  const pathName = useSelector((state) => state.navigation);
+  const plot = useSelector((state) => state.plot);
   useEffect(() => {
     const date = new Date();
     dispatch(getTodayDate(date));
-  });
-
-  const locationName = useSelector((state) => state.location.name);
-  const startDate = useSelector((state) => state.location.startDate);
-  const endDate = useSelector((state) => state.location.endDate);
-  const todayDate = useSelector((state) => state.todayDate);
-
-  console.log(locationName);
-
-  const getLocationID = async (name) => {
-    const locationInfo = await fetch(
-      `https://api.meteostat.net/v2/stations/search?query=${name}`,
-      {
-        method: "GET",
-        headers: { "x-api-key": "U6jdEMaNKSp4RfvG2oYDc16KrTtzbHog" },
-      }
-    );
-    const formattedInfo = await locationInfo.json();
-    console.log("ID", formattedInfo);
-    return formattedInfo;
-  };
-
-  const getWeatherInfo = async (startDate, endDate, location) => {
-    let completeRequest = true;
-    const stationID = await getLocationID(location)
-      .then((response) => response.data[0].id)
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(stationID);
-    if (!stationID) completeRequest = false;
-    if (completeRequest) {
-      const weatherInfo = await fetch(
-        `https://api.meteostat.net/v2/stations/daily?station=${stationID}&start=${startDate}&end=${endDate}`,
-        {
-          method: "GET",
-          headers: { "x-api-key": "U6jdEMaNKSp4RfvG2oYDc16KrTtzbHog" },
-        }
-      );
-      const formattedInfo = await weatherInfo.json();
-      console.log(formattedInfo.data);
-    }
-  };
-  if (todayDate) getWeatherInfo(todayDate, todayDate);
-
-  getLocationID("montreal");
-
+  }, [dispatch]);
+  const key = { pathName, plot };
   return (
-    <div className="App">
-      <body>
-        <Form getWeatherInfo={getWeatherInfo} />
-      </body>
-    </div>
+    <Paper elevation={5}>
+      <div className="App">
+        <Router>
+          <NavigationBar />
+          <Switch>
+            <Route path="/station/:id">
+              <Info key={pathName} />
+            </Route>
+            <Route path="/">
+              <body>
+                <div className="home1">
+                  <p>
+                    {" "}
+                    This website offers historical weather data using Plotly
+                    graphs.
+                  </p>
+                  <img
+                    id="plotly"
+                    alt="plotly logo"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Plotly-logo-01-square.png/1024px-Plotly-logo-01-square.png"
+                  ></img>
+                </div>
+                <div className="home2">
+                  <img
+                    id="meteostat"
+                    alt="meteostat logo"
+                    src="https://www.meteostat.net/logo.svg"
+                  ></img>
+                  <p>
+                    Using Meteostat's data and a UI designed for mobile, this
+                    app makes it easy to compare various locations.{" "}
+                  </p>
+                </div>
+                <div className="home3">
+                  <p>
+                    Start searching for locations now by clicking the search
+                    icon above{" "}
+                  </p>
+                  <img
+                    id="searchImage"
+                    alt="search logo"
+                    src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-512.png"
+                  ></img>
+                </div>
+              </body>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </Paper>
   );
 };
 
