@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Form from "./Form";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, Link, useHistory, NavLink } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { setNavigationPath } from "../reducers/navigationReducer";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import SecondNavBar from "./secondNavBar";
-import interact from "interactjs";
 import AddIcon from "@material-ui/icons/Add";
 import IconButton from "@material-ui/core/IconButton";
 const NavigationBar = () => {
@@ -29,9 +27,6 @@ const NavigationBar = () => {
   dispatch(setNavigationPath(locationPath.pathname));
   const selectedId = locationPath.pathname.match(idRegex);
 
-  interact(".individualPlaces").pointerEvents({
-    dt: 500,
-  });
   /*interact(".individualPlaces").on("doubletap", (e) => {
     if (doubletap) e.currentTarget.classList.add("held");
     setDoubletap(true);

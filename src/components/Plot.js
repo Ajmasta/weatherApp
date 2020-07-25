@@ -1,8 +1,10 @@
 import React from "react";
-import Plot from "react-plotly.js";
+import Plotly from "plotly.js";
+import createPlotlyComponent from "react-plotly.js/factory";
 import { useSelector, useDispatch } from "react-redux";
-import { setMarkerNames } from "../reducers/plotNames";
+
 const PlotDrawer = ({ dataView, plotName }) => {
+  const Plot = createPlotlyComponent(Plotly);
   const dispatch = useDispatch();
   const infos = useSelector((state) => state.infos);
   const mode = useSelector((state) => state.plot.mode);

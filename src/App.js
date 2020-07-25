@@ -9,17 +9,14 @@ import Info from "./components/Info";
 import NavigationBar from "./components/navBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import SearchIcon from "@material-ui/icons/Search";
 
 const App = () => {
   const dispatch = useDispatch();
   const pathName = useSelector((state) => state.navigation);
-  const plot = useSelector((state) => state.plot);
   useEffect(() => {
     const date = new Date();
     dispatch(getTodayDate(date));
   }, [dispatch]);
-  const key = { pathName, plot };
   return (
     <Paper elevation={5}>
       <div className="App">
@@ -32,11 +29,7 @@ const App = () => {
             <Route path="/">
               <body>
                 <div className="home1">
-                  <p>
-                    {" "}
-                    This website offers historical weather data using Plotly
-                    graphs.
-                  </p>
+                  <p> We offer historical weather data using Plotly graphs.</p>
                   <img
                     id="plotly"
                     alt="plotly logo"
@@ -50,8 +43,8 @@ const App = () => {
                     src="https://www.meteostat.net/logo.svg"
                   ></img>
                   <p>
-                    Using Meteostat's data and a UI designed for mobile, this
-                    app makes it easy to compare various locations.{" "}
+                    Using Meteostat's data and a UI designed for mobile, we
+                    makes it easy to compare various locations.{" "}
                   </p>
                 </div>
                 <div className="home3">

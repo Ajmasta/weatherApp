@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
+
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -11,28 +10,30 @@ import {
 } from "../reducers/locationReducer";
 import stationData from "../stations.json";
 import { useLocation } from "react-router-dom";
-import { setInfos } from "../reducers/infoReducer";
 import PlotDrawer from "./Plot";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
 import { setMarkerNames } from "../reducers/plotNames";
-import Paper from "@material-ui/core/Paper";
+
 import { setExpandedTab } from "../reducers/expandedTabreducer";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { usePromiseTracker } from "react-promise-tracker";
 import { trackPromise } from "react-promise-tracker";
 import { setDataView } from "../reducers/dataViewreducer";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+import { setInfos } from "../reducers/infoReducer";
+
+import Paper from "@material-ui/core/Paper";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Accordion from "@material-ui/core/Accordion";
 
 const Info = () => {
   const dataView = useSelector((state) => state.dataView);
   const { promiseInProgress } = usePromiseTracker();
   const expanded = useSelector((state) => state.expandedTab);
   const infos = useSelector((state) => state.infos);
-  const plot = useSelector((state) => state.plot);
   const [graphType, setGraphType] = useState("temp");
   const todayDate = useSelector((state) => state.todayDate);
 

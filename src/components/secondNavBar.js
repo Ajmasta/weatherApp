@@ -6,9 +6,7 @@ import { setInfos } from "../reducers/infoReducer";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
-import TimelineIcon from "@material-ui/icons/Timeline";
-import EqualizerIcon from "@material-ui/icons/Equalizer";
-import ShowChartIcon from "@material-ui/icons/ShowChart";
+
 import TabList from "@material-ui/lab/TabList";
 import TabContext from "@material-ui/lab/TabContext";
 import Tab from "@material-ui/core/Tab";
@@ -16,11 +14,15 @@ import TabPanel from "@material-ui/lab/TabPanel";
 import Radio from "@material-ui/core/Radio";
 import Checkbox from "@material-ui/core/Checkbox";
 import { setMode, setType, setBarMode } from "../reducers/plotReducer";
-import { Link, useLocation } from "react-router-dom";
-import PaletteSharpIcon from "@material-ui/icons/PaletteSharp";
+import { useLocation } from "react-router-dom";
 import { setMarker } from "../reducers/plotReducer";
+
 import CancelSharpIcon from "@material-ui/icons/CancelSharp";
 import SearchIcon from "@material-ui/icons/Search";
+import PaletteSharpIcon from "@material-ui/icons/PaletteSharp";
+import TimelineIcon from "@material-ui/icons/Timeline";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
+import ShowChartIcon from "@material-ui/icons/ShowChart";
 
 import Form from "./Form";
 const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
@@ -263,7 +265,6 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
           </span>
           <IconButton
             onClick={() => {
-              setHidden(!hidden);
               setIconClicked("Date");
             }}
           >
@@ -271,7 +272,6 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
           </IconButton>
           <IconButton
             onClick={() => {
-              setHidden(!hidden);
               setIconClicked("Graph");
             }}
           >
@@ -279,7 +279,6 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
           </IconButton>
           <IconButton
             onClick={() => {
-              setHidden(!hidden);
               setIconClicked("Palette");
             }}
           >
