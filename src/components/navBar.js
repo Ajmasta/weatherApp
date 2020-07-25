@@ -9,6 +9,8 @@ import Tooltip from "react-bootstrap/Tooltip";
 import SecondNavBar from "./secondNavBar";
 import AddIcon from "@material-ui/icons/Add";
 import IconButton from "@material-ui/core/IconButton";
+import { setHidden } from "../reducers/hiddenBarReducer";
+
 const NavigationBar = () => {
   let [doubletap, setDoubletap] = useState(false);
   const [searchClicked, setSearchClicked] = useState(false);
@@ -19,7 +21,7 @@ const NavigationBar = () => {
   const locationPath = useLocation();
 
   const currentPage = locationPath.pathname !== "/" ? "info" : "home";
-
+  console.log(currentPage);
   const locationArray = [];
   locationId.forEach((id, i) =>
     locationArray.push({ name: locationName[i], id })
@@ -45,6 +47,7 @@ const NavigationBar = () => {
         <Nav className="selectedPlaces">
           {locationArray.map((location) => (
             <Nav
+              key={location.id}
               className={
                 selectedId && selectedId[0] === location.id
                   ? "selected individualPlaces"
@@ -66,7 +69,7 @@ const NavigationBar = () => {
               >
                 <Link
                   to={
-                    currentPage === "info"
+                    currentPage === "infos"
                       ? `${location.id}`
                       : `/station/${location.id}`
                   }
@@ -88,6 +91,7 @@ const NavigationBar = () => {
             color="primary"
             onClick={() => {
               setSearchClicked("true");
+              dispatch(setHidden(true));
               if (document.querySelector("#search-input"))
                 document.querySelector("#search-input").focus();
             }}

@@ -14,7 +14,7 @@ body {
   border: black solid 1px;
   display: block;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 5%;
   padding: 5%;
   box-shadow: 2px 2px 2px black;
   display: flex;
@@ -56,7 +56,7 @@ body {
   border: black solid 1px;
   display: block;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 100px;
   padding: 5%;
   box-shadow: 2px 2px 2px black;
   display: flex;
@@ -114,6 +114,7 @@ a:hover {
   height: 100%;
   margin-top: 0;
   margin-bottom: 0;
+  padding: 2% 0 2% 0;
   z-index: 3000;
   border-left: black solid 1px;
   border-right: black solid 1px;

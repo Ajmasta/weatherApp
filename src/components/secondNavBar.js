@@ -25,8 +25,9 @@ import EqualizerIcon from "@material-ui/icons/Equalizer";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
 
 import Form from "./Form";
+import { setHidden } from "../reducers/hiddenBarReducer";
 const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
-  const [hidden, setHidden] = useState(true);
+  const hidden = useSelector((state) => state.hidden);
   const [iconClicked, setIconClicked] = useState("");
   const [tabNumber, setTabNumber] = useState("2");
   const [radioValue, setRadioValue] = useState("1");
@@ -51,6 +52,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
     if (!linesChecked && markersChecked) newMode = "markers";
 
     if (linesChecked || markersChecked) dispatch(setType("scatter"));
+    if (!linesChecked && markersChecked) dispatch(setType(""));
     dispatch(setMode(newMode));
   }, [dispatch, linesChecked, markersChecked]);
 
@@ -87,7 +89,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
               className="changeDateForm"
               onSubmit={(e) => {
                 e.preventDefault();
-                setHidden(true);
+                dispatch(setHidden(true));
               }}
             >
               <TextField
@@ -115,7 +117,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
           </span>
           <IconButton
             onClick={() => {
-              setHidden(true);
+              dispatch(setHidden(true));
             }}
           >
             <CancelSharpIcon />
@@ -195,7 +197,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
           <IconButton
             onClick={() => {
               setIconClicked("");
-              setHidden(true);
+              dispatch(setHidden(true));
             }}
           >
             <CancelSharpIcon />
@@ -252,7 +254,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
               ""
             )}
           </span>
-          <IconButton onClick={() => setHidden(true)}>
+          <IconButton onClick={() => dispatch(setHidden(true))}>
             <CancelSharpIcon />
           </IconButton>
         </>
@@ -292,7 +294,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
           <span className="searchSpan">
             <IconButton
               onClick={() => {
-                setHidden(!hidden);
+                dispatch(setHidden(false));
                 setIconClicked("Search");
               }}
             >
@@ -302,7 +304,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
 
           <IconButton
             onClick={() => {
-              setHidden(!hidden);
+              dispatch(setHidden(false));
               setIconClicked("Date");
             }}
           >
@@ -311,7 +313,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
 
           <IconButton
             onClick={() => {
-              setHidden(!hidden);
+              dispatch(setHidden(false));
               setIconClicked("Graph");
             }}
           >
@@ -319,7 +321,7 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
           </IconButton>
           <IconButton
             onClick={() => {
-              setHidden(!hidden);
+              dispatch(setHidden(false));
               setIconClicked("Palette");
             }}
           >

@@ -40,7 +40,7 @@ const Info = () => {
   let startDate = useSelector((state) => state.location.startDate);
   let endDate = useSelector((state) => state.location.endDate);
   const [id, setParamId] = useState(useParams().id);
-
+  console.log(id);
   const pageLocation = useLocation();
   const dispatch = useDispatch();
   const [station, setStation] = useState(
@@ -93,7 +93,7 @@ const Info = () => {
           `https://api.meteostat.net/v2/stations/daily?station=${stationID}&start=${startDate}&end=${endDate}`,
           {
             method: "GET",
-            headers: { "x-api-key": "U6jdEMaNKSp4RfvG2oYDc16KrTtzbHog" },
+            headers: { "x-api-key": process.env.REACT_APP_API_KEY },
           }
         )
       );
@@ -106,7 +106,7 @@ const Info = () => {
           `https://api.meteostat.net/v2/stations/hourly?station=${stationID}&start=${startDate}&end=${endDate}`,
           {
             method: "GET",
-            headers: { "x-api-key": "U6jdEMaNKSp4RfvG2oYDc16KrTtzbHog" },
+            headers: { "x-api-key": process.env.REACT_APP_API_KEY },
           }
         )
       );

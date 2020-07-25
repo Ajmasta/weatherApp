@@ -38,7 +38,12 @@ export const getTodayDate = (date) => {
       formatDate(previousDates(date, 365)).month +
       "-" +
       formatDate(previousDates(date, 365)).day;
-
+    let lastThreeDaysFormatted =
+      formatDate(previousDates(date, 3)).year +
+      "-" +
+      formatDate(previousDates(date, 3)).month +
+      "-" +
+      formatDate(previousDates(date, 3)).day;
     console.log(lastYearFormatted);
     dispatch({
       type: "TODAY_DATE",
@@ -47,6 +52,7 @@ export const getTodayDate = (date) => {
         lastWeekFormatted,
         lastMonthFormatted,
         lastYearFormatted,
+        lastThreeDaysFormatted,
       },
     });
   };
@@ -60,6 +66,7 @@ const reducer = (state = { today: "", lastWeek: "" }, action) => {
       dates.lastWeek = action.data.lastWeekFormatted;
       dates.lastMonth = action.data.lastMonthFormatted;
       dates.lastYear = action.data.lastYearFormatted;
+      dates.threeDays = action.data.last;
       return dates;
     }
     default: {

@@ -28,6 +28,17 @@ const App = () => {
             </Route>
             <Route path="/">
               <body>
+                <div className="home3">
+                  <p>
+                    Start searching for locations now by clicking the search
+                    icon above{" "}
+                  </p>
+                  <img
+                    id="searchImage"
+                    alt="search logo"
+                    src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-512.png"
+                  ></img>
+                </div>
                 <div className="home1">
                   <p> We offer historical weather data using Plotly graphs.</p>
                   <img
@@ -46,17 +57,6 @@ const App = () => {
                     Using Meteostat's data and a UI designed for mobile, we
                     makes it easy to compare various locations.{" "}
                   </p>
-                </div>
-                <div className="home3">
-                  <p>
-                    Start searching for locations now by clicking the search
-                    icon above{" "}
-                  </p>
-                  <img
-                    id="searchImage"
-                    alt="search logo"
-                    src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-512.png"
-                  ></img>
                 </div>
               </body>
             </Route>

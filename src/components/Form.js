@@ -8,7 +8,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 const SearchInput = ({ setSearchClicked }) => {
   let currentSearch = useSelector((state) => state.searchResults);
-  let checked = currentSearch.length >= 3 ? true : false;
   const dispatch = useDispatch();
   const handleNameChange = (e) => {
     e.preventDefault();
@@ -17,15 +16,15 @@ const SearchInput = ({ setSearchClicked }) => {
   };
   const handleBlur = () => {
     const suggestions = document.querySelector(".suggestions");
-    setTimeout(() => suggestions.classList.add("trueHidden"), 100);
-    setSearchClicked(false);
+    setTimeout(() => suggestions.classList.add("trueHidden"), 150);
+    setTimeout(() => setSearchClicked(false), 100);
   };
   const handleFocus = () => {
     const suggestions = document.querySelector(".suggestions");
     suggestions.classList.remove("trueHidden");
   };
   return (
-    <form class="searchForm">
+    <form className="searchForm">
       <Input
         value={currentSearch}
         autoFocus

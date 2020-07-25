@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import stationData from "../stations";
 import { setName } from "../reducers/locationReducer";
+import { setHidden } from "../reducers/hiddenBarReducer";
 
 const SearchResults = () => {
   const locationName = useSelector((state) => state.searchResults);
@@ -28,6 +29,7 @@ const SearchResults = () => {
         key={station.ID}
         onClick={() => {
           dispatch(setName(station.name.en));
+          dispatch(setHidden(true));
           const suggestions = document.querySelector(".suggestions");
           setTimeout(() => suggestions.classList.add("trueHidden"), 100);
         }}
