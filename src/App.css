@@ -2,10 +2,15 @@
   text-align: center;
   height: 100%;
   font-size: 1rem;
+  width: auto;
 }
-
+html,
 body {
-  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+body {
+  width: auto;
   height: 100%;
   min-width: 450px;
   font-size: 100%;
@@ -129,6 +134,7 @@ a:hover {
   height: 0px;
   display: flex;
   min-width: 100%;
+  width: auto;
   background-color: white !important;
 }
 .NaviBar > div {
