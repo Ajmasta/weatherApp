@@ -24,6 +24,7 @@ import PaletteSharpIcon from "@material-ui/icons/PaletteSharp";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
+import { setLocationInput } from "../reducers/searchReducer";
 
 import Form from "./Form";
 import { setHidden } from "../reducers/hiddenBarReducer";

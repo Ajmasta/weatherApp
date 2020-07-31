@@ -18,7 +18,7 @@ const App = () => {
     dispatch(getTodayDate(date));
   }, [dispatch]);
   return (
-    <Paper elevation={5}>
+    <Paper elevation={0}>
       <div className="App">
         <Router>
           <NavigationBar />

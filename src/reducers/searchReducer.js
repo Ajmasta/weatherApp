@@ -1,19 +1,3 @@
-/*export const setSearch = (formattedData) => {
-  return async (dispatch) => {
-    let IDs = "";
-    let names = "";
-    if (formattedData) {
-      IDs = formattedData.data.map((element) => element.id);
-      names = formattedData.data.map((element) => element.name);
-      dispatch({ type: "NEW_SEARCH", data: { IDs, names } });
-    } else {
-      dispatch({ type: "CLEAR", data: "" });
-    }
-
-    console.log("IDS", IDs);
-  };
-};
-*/
 export const setLocationInput = (input) => {
   return async (dispatch) => {
     dispatch({ type: "NEW_SEARCH_INPUT", data: input });

@@ -141,213 +141,207 @@ const Info = () => {
   }, [startDate, endDate, infos, id, dataView, graphType]);
 
   return (
-    <Paper elevation={0}>
-      <div className="infos">
-        <ToggleButtonGroup type="checkbox" value={dataView} size="sm">
-          <ToggleButton
-            disabled={hourlyDisabled}
-            onClick={() => {
-              if (!hourlyDisabled) {
-                dispatch(setDataView("hourly"));
-                if (document.querySelector(".clickedDate"))
-                  document
-                    .querySelector(".clickedDate")
-                    .classList.remove("clickedDate");
-                dispatch(setStartDate(todayDate.today));
-                dispatch(setEndDate(todayDate.today));
-                dispatch(setDateRange("dateRange1"));
-                dispatch(setExpandedTab("panel1"));
-                dispatch(setInfos(null));
-              }
-            }}
-            value={"hourly"}
-          >
-            Hourly
-          </ToggleButton>
+    <div className="infos">
+      <ToggleButtonGroup type="checkbox" value={dataView} size="sm">
+        <ToggleButton
+          disabled={hourlyDisabled}
+          onClick={() => {
+            if (!hourlyDisabled) {
+              dispatch(setDataView("hourly"));
+              if (document.querySelector(".clickedDate"))
+                document
+                  .querySelector(".clickedDate")
+                  .classList.remove("clickedDate");
+              dispatch(setStartDate(todayDate.today));
+              dispatch(setEndDate(todayDate.today));
+              dispatch(setDateRange("dateRange1"));
+              dispatch(setExpandedTab("panel1"));
+              dispatch(setInfos(null));
+            }
+          }}
+          value={"hourly"}
+        >
+          Hourly
+        </ToggleButton>
 
-          <ToggleButton
-            disabled={dailyDisabled}
-            value={"daily"}
+        <ToggleButton
+          disabled={dailyDisabled}
+          value={"daily"}
+          onClick={(e) => {
+            if (!dailyDisabled) {
+              dispatch(setDataView("daily"));
+              if (document.querySelector(".clickedDate"))
+                document
+                  .querySelector(".clickedDate")
+                  .classList.remove("clickedDate");
+              dispatch(setStartDate(todayDate.lastWeek));
+              dispatch(setEndDate(todayDate.today));
+              dispatch(setDateRange("dateRange1"));
+              dispatch(setExpandedTab("panel1"));
+              dispatch(setInfos(null));
+            }
+          }}
+        >
+          Daily
+        </ToggleButton>
+      </ToggleButtonGroup>
+
+      <div>
+        <h2>{station.name.en}</h2>
+        <h3 id="dateInfos">
+          {startDate !== endDate
+            ? `From ${startDate} to ${endDate}`
+            : `${startDate}`}
+        </h3>
+        <div className="infoCards">
+          <span
+            id="dateRange1"
+            className="infoCard"
+            name={dataView === "daily" ? "Week" : "Today"}
             onClick={(e) => {
-              if (!dailyDisabled) {
-                dispatch(setDataView("daily"));
-                if (document.querySelector(".clickedDate"))
-                  document
-                    .querySelector(".clickedDate")
-                    .classList.remove("clickedDate");
-                dispatch(setStartDate(todayDate.lastWeek));
-                dispatch(setEndDate(todayDate.today));
-                dispatch(setDateRange("dateRange1"));
-                dispatch(setExpandedTab("panel1"));
-                dispatch(setInfos(null));
-              }
+              if (document.querySelector(".clickedDate"))
+                document
+                  .querySelector(".clickedDate")
+                  .classList.remove("clickedDate");
+              e.target.classList.add("clickedDate");
+              dataView === "daily"
+                ? dispatch(setStartDate(todayDate.lastWeek))
+                : dispatch(setStartDate(todayDate.today));
+              if (expanded === "") dispatch(setExpandedTab("panel1"));
+              dispatch(setDateRange(e.target.id));
+              dispatch(setInfos(null));
             }}
           >
-            Daily
-          </ToggleButton>
-        </ToggleButtonGroup>
+            {dataView === "daily" ? "Week" : "Today"}
+          </span>
 
+          <span
+            id="dateRange2"
+            value={dataView === "daily" ? "Month" : "3 Days "}
+            onClick={(e) => {
+              if (document.querySelector(".clickedDate"))
+                document
+                  .querySelector(".clickedDate")
+                  .classList.remove("clickedDate");
+              e.target.classList.add("clickedDate");
+
+              dataView === "daily"
+                ? dispatch(setStartDate(todayDate.lastMonth))
+                : dispatch(setStartDate(todayDate.threeDays));
+              dispatch(setEndDate(todayDate.today));
+              if (expanded === "") dispatch(setExpandedTab("panel1"));
+              dispatch(setDateRange(e.target.id));
+              dispatch(setInfos(null));
+            }}
+            className="infoCard"
+          >
+            {dataView === "daily" ? "Month" : "3 Days "}
+          </span>
+          <span
+            id="dateRange3"
+            name={dataView === "daily" ? "Year" : "Week"}
+            onClick={(e) => {
+              if (document.querySelector(".clickedDate"))
+                document
+                  .querySelector(".clickedDate")
+                  .classList.remove("clickedDate");
+              e.target.classList.add("clickedDate");
+              dataView === "daily"
+                ? dispatch(setStartDate(todayDate.lastYear))
+                : dispatch(setStartDate(todayDate.lastWeek));
+              dispatch(setEndDate(todayDate.today));
+              if (expanded === "") dispatch(setExpandedTab("panel1"));
+              dispatch(setDateRange(e.target.id));
+              dispatch(setInfos(null));
+            }}
+            className="infoCard"
+          >
+            {dataView === "daily" ? "Year" : "Week"}
+          </span>
+        </div>
         <div>
-          <h2>{station.name.en}</h2>
-          <h3 id="dateInfos">
-            {startDate !== endDate
-              ? `From ${startDate} to ${endDate}`
-              : `${startDate}`}
-          </h3>
-          <div className="infoCards">
-            <span
-              id="dateRange1"
-              className="infoCard"
-              name={dataView === "daily" ? "Week" : "Today"}
-              onClick={(e) => {
-                if (document.querySelector(".clickedDate"))
-                  document
-                    .querySelector(".clickedDate")
-                    .classList.remove("clickedDate");
-                e.target.classList.add("clickedDate");
-                dataView === "daily"
-                  ? dispatch(setStartDate(todayDate.lastWeek))
-                  : dispatch(setStartDate(todayDate.today));
-                if (expanded === "") dispatch(setExpandedTab("panel1"));
-                dispatch(setDateRange(e.target.id));
-                dispatch(setInfos(null));
-              }}
-            >
-              {dataView === "daily" ? "Week" : "Today"}
-            </span>
+          <div className="accordionBlock">
+            <Accordion expanded={expanded === "panel1"}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id={
+                  expanded === "panel1"
+                    ? "panel1a-header expanded"
+                    : "panel1a-header"
+                }
+                onClick={() => {
+                  setGraphType("temp");
 
-            <span
-              id="dateRange2"
-              value={dataView === "daily" ? "Month" : "3 Days "}
-              onClick={(e) => {
-                if (document.querySelector(".clickedDate"))
-                  document
-                    .querySelector(".clickedDate")
-                    .classList.remove("clickedDate");
-                e.target.classList.add("clickedDate");
+                  if (expanded === "panel1") dispatch(setExpandedTab(""));
+                  if (expanded === "panel2") dispatch(setExpandedTab("panel1"));
+                  if (expanded === "") dispatch(setExpandedTab("panel1"));
+                }}
+              >
+                Temperature
+              </AccordionSummary>
 
-                dataView === "daily"
-                  ? dispatch(setStartDate(todayDate.lastMonth))
-                  : dispatch(setStartDate(todayDate.threeDays));
-                dispatch(setEndDate(todayDate.today));
-                if (expanded === "") dispatch(setExpandedTab("panel1"));
-                dispatch(setDateRange(e.target.id));
-                dispatch(setInfos(null));
-              }}
-              className="infoCard"
-            >
-              {dataView === "daily" ? "Month" : "3 Days "}
-            </span>
-            <span
-              id="dateRange3"
-              name={dataView === "daily" ? "Year" : "Week"}
-              onClick={(e) => {
-                if (document.querySelector(".clickedDate"))
-                  document
-                    .querySelector(".clickedDate")
-                    .classList.remove("clickedDate");
-                e.target.classList.add("clickedDate");
-                dataView === "daily"
-                  ? dispatch(setStartDate(todayDate.lastYear))
-                  : dispatch(setStartDate(todayDate.lastWeek));
-                dispatch(setEndDate(todayDate.today));
-                if (expanded === "") dispatch(setExpandedTab("panel1"));
-                dispatch(setDateRange(e.target.id));
-                dispatch(setInfos(null));
-              }}
-              className="infoCard"
-            >
-              {dataView === "daily" ? "Year" : "Week"}
-            </span>
-          </div>
-          <div>
-            <div className="accordionBlock">
-              <Accordion expanded={expanded === "panel1"}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id={
-                    expanded === "panel1"
-                      ? "panel1a-header expanded"
-                      : "panel1a-header"
-                  }
-                  onClick={() => {
-                    setGraphType("temp");
+              <AccordionDetails className="accordion">
+                {" "}
+                {infos ? (
+                  <PlotDrawer
+                    dataView={dataView}
+                    key={infos}
+                    plotName={"Temperature"}
+                  />
+                ) : promiseInProgress ? (
+                  <CircularProgress />
+                ) : dataView === "daily" ? (
+                  "No Results. Sometimes there is no data. Make sure your request is not more than 370 days. "
+                ) : (
+                  "No Results. Sometimes there is no data. Make sure your request is not more than 240 hours (10 days). "
+                )}
+              </AccordionDetails>
+            </Accordion>
 
-                    if (expanded === "panel1") dispatch(setExpandedTab(""));
-                    if (expanded === "panel2")
-                      dispatch(setExpandedTab("panel1"));
-                    if (expanded === "") dispatch(setExpandedTab("panel1"));
-                  }}
-                >
-                  Temperature
-                </AccordionSummary>
-
-                <AccordionDetails className="accordion">
-                  {" "}
-                  {infos ? (
-                    <PlotDrawer
-                      dataView={dataView}
-                      key={infos}
-                      plotName={"Temperature"}
-                    />
-                  ) : promiseInProgress ? (
-                    <CircularProgress />
-                  ) : dataView === "daily" ? (
-                    "No Results. Sometimes there is no data. Make sure your request is not more than 370 days. "
-                  ) : (
-                    "No Results. Sometimes there is no data. Make sure your request is not more than 240 hours (10 days). "
-                  )}
-                </AccordionDetails>
-              </Accordion>
-
-              <Accordion expanded={expanded === "panel2"}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2a-content"
-                  id={
-                    expanded === "panel2"
-                      ? "panel2a-header expanded"
-                      : "panel2a-header"
-                  }
-                  onClick={() => {
-                    setGraphType("prcp");
-                    if (expanded === "panel1")
-                      dispatch(setExpandedTab("panel2"));
-                    if (expanded === "panel2") dispatch(setExpandedTab(""));
-                    if (expanded === "") dispatch(setExpandedTab("panel2"));
-                  }}
-                >
-                  {dataView === "daily"
-                    ? "Precipitations"
-                    : "Relative Humidity"}
-                </AccordionSummary>
-                <AccordionDetails className="accordion">
-                  {" "}
-                  {infos ? (
-                    <PlotDrawer
-                      dataView={dataView}
-                      key={infos}
-                      plotName={
-                        dataView === "daily"
-                          ? "Precipitations"
-                          : "Relative Humidity"
-                      }
-                    />
-                  ) : promiseInProgress ? (
-                    <CircularProgress />
-                  ) : dataView === "daily" ? (
-                    "No Results. Sometimes there is no data, but make sure your request is not more than 370 days. "
-                  ) : (
-                    "No Results. Sometimes there is no data, but make sure your request is not more than 240 hours (10 days). "
-                  )}
-                </AccordionDetails>
-              </Accordion>
-            </div>
+            <Accordion expanded={expanded === "panel2"}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2a-content"
+                id={
+                  expanded === "panel2"
+                    ? "panel2a-header expanded"
+                    : "panel2a-header"
+                }
+                onClick={() => {
+                  setGraphType("prcp");
+                  if (expanded === "panel1") dispatch(setExpandedTab("panel2"));
+                  if (expanded === "panel2") dispatch(setExpandedTab(""));
+                  if (expanded === "") dispatch(setExpandedTab("panel2"));
+                }}
+              >
+                {dataView === "daily" ? "Precipitations" : "Relative Humidity"}
+              </AccordionSummary>
+              <AccordionDetails className="accordion">
+                {" "}
+                {infos ? (
+                  <PlotDrawer
+                    dataView={dataView}
+                    key={infos}
+                    plotName={
+                      dataView === "daily"
+                        ? "Precipitations"
+                        : "Relative Humidity"
+                    }
+                  />
+                ) : promiseInProgress ? (
+                  <CircularProgress />
+                ) : dataView === "daily" ? (
+                  "No Results. Sometimes there is no data, but make sure your request is not more than 370 days. "
+                ) : (
+                  "No Results. Sometimes there is no data, but make sure your request is not more than 240 hours (10 days). "
+                )}
+              </AccordionDetails>
+            </Accordion>
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
   );
 };
 
