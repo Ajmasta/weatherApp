@@ -29,18 +29,22 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Accordion from "@material-ui/core/Accordion";
 
+import { setDateRange } from "../reducers/dateRangeReducer";
+
 const Info = () => {
   const dataView = useSelector((state) => state.dataView);
   const { promiseInProgress } = usePromiseTracker();
   const expanded = useSelector((state) => state.expandedTab);
   const infos = useSelector((state) => state.infos);
-  const [graphType, setGraphType] = useState("temp");
+  const [graphType, setGraphType] = useState(
+    expanded === "panel1" ? "temp" : "prcp"
+  );
   const todayDate = useSelector((state) => state.todayDate);
 
   let startDate = useSelector((state) => state.location.startDate);
   let endDate = useSelector((state) => state.location.endDate);
   const [id, setParamId] = useState(useParams().id);
-  console.log(id);
+
   const pageLocation = useLocation();
   const dispatch = useDispatch();
   const [station, setStation] = useState(
@@ -54,6 +58,10 @@ const Info = () => {
   if (dailyDisabled && dataView === "daily") dispatch(setDataView("hourly"));
 
   let infoFormatted = [];
+
+  const dateRange = useSelector((state) => state.dateRange);
+  if (document.getElementById(dateRange))
+    document.getElementById(dateRange).classList.add("clickedDate");
 
   useEffect(() => {
     const setAllMarkers = () => {
@@ -145,6 +153,10 @@ const Info = () => {
                   document
                     .querySelector(".clickedDate")
                     .classList.remove("clickedDate");
+                dispatch(setStartDate(todayDate.today));
+                dispatch(setEndDate(todayDate.today));
+                dispatch(setDateRange("dateRange1"));
+                dispatch(setExpandedTab("panel1"));
                 dispatch(setInfos(null));
               }
             }}
@@ -163,6 +175,10 @@ const Info = () => {
                   document
                     .querySelector(".clickedDate")
                     .classList.remove("clickedDate");
+                dispatch(setStartDate(todayDate.lastWeek));
+                dispatch(setEndDate(todayDate.today));
+                dispatch(setDateRange("dateRange1"));
+                dispatch(setExpandedTab("panel1"));
                 dispatch(setInfos(null));
               }
             }}
@@ -180,6 +196,7 @@ const Info = () => {
           </h3>
           <div className="infoCards">
             <span
+              id="dateRange1"
               className="infoCard"
               name={dataView === "daily" ? "Week" : "Today"}
               onClick={(e) => {
@@ -192,6 +209,7 @@ const Info = () => {
                   ? dispatch(setStartDate(todayDate.lastWeek))
                   : dispatch(setStartDate(todayDate.today));
                 if (expanded === "") dispatch(setExpandedTab("panel1"));
+                dispatch(setDateRange(e.target.id));
                 dispatch(setInfos(null));
               }}
             >
@@ -199,6 +217,7 @@ const Info = () => {
             </span>
 
             <span
+              id="dateRange2"
               value={dataView === "daily" ? "Month" : "3 Days "}
               onClick={(e) => {
                 if (document.querySelector(".clickedDate"))
@@ -212,6 +231,7 @@ const Info = () => {
                   : dispatch(setStartDate(todayDate.threeDays));
                 dispatch(setEndDate(todayDate.today));
                 if (expanded === "") dispatch(setExpandedTab("panel1"));
+                dispatch(setDateRange(e.target.id));
                 dispatch(setInfos(null));
               }}
               className="infoCard"
@@ -219,6 +239,7 @@ const Info = () => {
               {dataView === "daily" ? "Month" : "3 Days "}
             </span>
             <span
+              id="dateRange3"
               name={dataView === "daily" ? "Year" : "Week"}
               onClick={(e) => {
                 if (document.querySelector(".clickedDate"))
@@ -231,6 +252,7 @@ const Info = () => {
                   : dispatch(setStartDate(todayDate.lastWeek));
                 dispatch(setEndDate(todayDate.today));
                 if (expanded === "") dispatch(setExpandedTab("panel1"));
+                dispatch(setDateRange(e.target.id));
                 dispatch(setInfos(null));
               }}
               className="infoCard"

@@ -66,7 +66,7 @@ const reducer = (state = { today: "", lastWeek: "" }, action) => {
       dates.lastWeek = action.data.lastWeekFormatted;
       dates.lastMonth = action.data.lastMonthFormatted;
       dates.lastYear = action.data.lastYearFormatted;
-      dates.threeDays = action.data.last;
+      dates.threeDays = action.data.lastThreeDaysFormatted;
       return dates;
     }
     default: {

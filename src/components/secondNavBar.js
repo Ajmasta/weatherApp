@@ -16,6 +16,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { setMode, setType, setBarMode } from "../reducers/plotReducer";
 import { useLocation } from "react-router-dom";
 import { setMarker } from "../reducers/plotReducer";
+import DateTab from "./dateTab";
 
 import CancelSharpIcon from "@material-ui/icons/CancelSharp";
 import SearchIcon from "@material-ui/icons/Search";
@@ -37,10 +38,13 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
   const marker = useSelector((state) => state.plot.marker);
   const marker1 = useSelector((state) => state.plot.marker1);
   const marker2 = useSelector((state) => state.plot.marker2);
-
-  const dispatch = useDispatch();
   let startDate = useSelector((state) => state.location.startDate);
   let endDate = useSelector((state) => state.location.endDate);
+
+  const dispatch = useDispatch();
+  const todayDate = useSelector((state) => state.todayDate);
+  if (!startDate) dispatch(setStartDate(todayDate.lastWeek));
+  if (!endDate) endDate = dispatch(setEndDate(todayDate.today));
   const locationName = useSelector((state) => state.location.name);
   const idRegex = /[A-Z0-9]+/;
   const locationPath = useLocation();
@@ -56,19 +60,6 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
     dispatch(setMode(newMode));
   }, [dispatch, linesChecked, markersChecked]);
 
-  const handleStartDateChange = (e) => {
-    dispatch(setInfos(null));
-    return dispatch(setStartDate(e.target.value));
-  };
-
-  const handleEndDateChange = (e) => {
-    dispatch(setInfos(null));
-    return dispatch(setEndDate(e.target.value));
-  };
-
-  const todayDate = useSelector((state) => state.todayDate);
-  if (!startDate) dispatch(setStartDate(todayDate.lastWeek));
-  if (!endDate) endDate = dispatch(setEndDate(todayDate.today));
   const handleTabChange = (event, value) => {
     setTabNumber(value);
   };
@@ -83,46 +74,12 @@ const SecondNavBar = ({ searchClicked, setSearchClicked }) => {
   const handleDisplay = (hidden) => {
     if (!hidden && iconClicked === "Date") {
       return (
-        <>
-          <span className="dateSpan flex">
-            <form
-              className="changeDateForm"
-              onSubmit={(e) => {
-                e.preventDefault();
-                dispatch(setHidden(true));
-              }}
-            >
-              <TextField
-                className="dateInput"
-                type="date"
-                name="startDate"
-                label="Start Date"
-                onChange={handleStartDateChange}
-                inputProps={{ max: endDate }}
-                defaultValue={startDate}
-              />
-
-              {"   "}
-              <TextField
-                className="dateInput"
-                type="date"
-                placeholder={todayDate}
-                inputProps={{ max: todayDate }}
-                defaultValue={endDate}
-                name="endDate"
-                label="End Date"
-                onChange={handleEndDateChange}
-              />
-            </form>
-          </span>
-          <IconButton
-            onClick={() => {
-              dispatch(setHidden(true));
-            }}
-          >
-            <CancelSharpIcon />
-          </IconButton>
-        </>
+        <DateTab
+          key={hidden}
+          todayDate={todayDate}
+          startDate={startDate}
+          endDate={endDate}
+        />
       );
     } else if (!hidden && iconClicked === "Graph") {
       return (

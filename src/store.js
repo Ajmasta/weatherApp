@@ -11,6 +11,7 @@ import plotNames from "./reducers/plotNames";
 import tabExpandedReducer from "./reducers/expandedTabreducer";
 import dataViewReducer from "./reducers/dataViewreducer";
 import hiddenBarReducer from "./reducers/hiddenBarReducer";
+import dateRangeReducer from "./reducers/dateRangeReducer";
 const reducer = combineReducers({
   location: locationReducer,
   todayDate: todayDateReducer,
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   expandedTab: tabExpandedReducer,
   dataView: dataViewReducer,
   hidden: hiddenBarReducer,
+  dateRange: dateRangeReducer,
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));

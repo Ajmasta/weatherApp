@@ -21,7 +21,7 @@ const NavigationBar = () => {
   const locationPath = useLocation();
 
   const currentPage = locationPath.pathname !== "/" ? "info" : "home";
-  console.log(currentPage);
+
   const locationArray = [];
   locationId.forEach((id, i) =>
     locationArray.push({ name: locationName[i], id })
@@ -29,10 +29,6 @@ const NavigationBar = () => {
   dispatch(setNavigationPath(locationPath.pathname));
   const selectedId = locationPath.pathname.match(idRegex);
 
-  /*interact(".individualPlaces").on("doubletap", (e) => {
-    if (doubletap) e.currentTarget.classList.add("held");
-    setDoubletap(true);
-  });*/
   return (
     <Navbar className="NaviBar" bg="primary" variant="dark" sticky="top">
       <Navbar.Brand>
