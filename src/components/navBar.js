@@ -10,7 +10,6 @@ import SecondNavBar from "./secondNavBar";
 import AddIcon from "@material-ui/icons/Add";
 import IconButton from "@material-ui/core/IconButton";
 import { setHidden } from "../reducers/hiddenBarReducer";
-import { setLocationInput } from "../reducers/searchReducer";
 const NavigationBar = () => {
   let [doubletap, setDoubletap] = useState(false);
   const [searchClicked, setSearchClicked] = useState(false);
@@ -90,7 +89,7 @@ const NavigationBar = () => {
               dispatch(setHidden(true));
               if (document.querySelector("#search-input"))
                 document.querySelector("#search-input").focus();
-              dispatch(setLocationInput(""));
+
             }}
           >
             <AddIcon />
